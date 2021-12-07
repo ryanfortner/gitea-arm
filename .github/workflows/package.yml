@@ -31,6 +31,7 @@ jobs:
           mkdir -p debs
           rm -rf debs/*
           mv tmp/deb/*.deb debs/
+          rm -rf tmp
           git config user.name 'Ryan Fortner'
           git config user.email 'ryanfortner@users.noreply.github.com'
           git add .
