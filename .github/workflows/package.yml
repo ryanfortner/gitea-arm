@@ -24,6 +24,11 @@ jobs:
           mkdir tmp && cd tmp
           git clone https://github.com/ryanfortner/gitea-arm .
           chmod +x build-package
+          chmod 755 DEBIAN/control
+          chmod 755 DEBIAN/postinst
+          chmod 755 DEBIAN/postrm
+          chmod 755 DEBIAN/preinst
+          chmod 755 DEBIAN/prerm
           bash build-package || exit 1
           cd ..
           mkdir -p debs
