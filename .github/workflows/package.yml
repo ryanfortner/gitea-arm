@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Package debs
         run: |
+          rm -rf tmp
           mkdir tmp && cd tmp
           git clone https://github.com/ryanfortner/gitea-arm .
           chmod +x build-package
