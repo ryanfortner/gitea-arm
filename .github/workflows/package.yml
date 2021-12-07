@@ -1,0 +1,30 @@
+name: package
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  generate-debs:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Package debs
+        uses: actions/checkout@v2
+        run: |
+          cd $DIR
+          mkdir tmp && cd tmp
+          git clone https://github.com/ryanfortner/gitea-arm .
+          chmod +x build-package
+          bash build-package || exit 1
+          cd ..
+          mkdir -p debs
+          rm -rf debs/*
+          mv tmp/deb/*.deb debs/
+          echo "done"

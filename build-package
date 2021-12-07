@@ -17,7 +17,7 @@ repo="go-gitea/gitea"
 api=$(curl --silent "https://api.github.com/repos/$repo/releases/latest")
 new=$(echo $api | grep -Po '"tag_name": "v\K.*?(?=")')
     
-all_dist=('amd64' '386' 'arm-6' 'arm64')
+all_dist=('arm-6' 'arm64')
 for dist in "${all_dist[@]}"; do
 
     # Remove potential leftovers from a previous build
@@ -42,7 +42,6 @@ for dist in "${all_dist[@]}"; do
     # Modify control file for build
     sed -i "s/VERSION-TO-REPLACE/$new/" "$DESTDIR/DEBIAN/control"
     [ "$dist" == "arm-6" ] &&  dist="armhf"
-    [ "$dist" == "386" ] && dist="i386"
     sed -i "s/ARCHI-TO-REPLACE/$dist/" "$DESTDIR/DEBIAN/control"
     
     # Build .deb
