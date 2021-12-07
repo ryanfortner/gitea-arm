@@ -15,8 +15,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Package debs
       - uses: actions/checkout@v2
+      - name: Package debs
       - run: |
           cd $DIR
           mkdir tmp && cd tmp
@@ -27,4 +27,8 @@ jobs:
           mkdir -p debs
           rm -rf debs/*
           mv tmp/deb/*.deb debs/
-          echo "done"
+          git config user.name 'Ryan Fortner'
+          git config user.email 'ryanfortner@users.noreply.github.com'
+          git add .
+          git commit -m "daily gitea compile"
+          git push origin master
