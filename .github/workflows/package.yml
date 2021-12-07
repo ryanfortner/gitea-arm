@@ -15,9 +15,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Package debs
-      - run: |
+        run: |
           cd $DIR
           mkdir tmp && cd tmp
           git clone https://github.com/ryanfortner/gitea-arm .
