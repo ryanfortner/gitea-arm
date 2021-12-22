@@ -18,7 +18,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Package debs
         run: |
-          LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+          export LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+          export current=$(cat current.txt)
+          [ "$current" == "$LATEST" ] && exit 0
           rm -rf tmp
           mkdir tmp && cd tmp
           git clone https://github.com/ryanfortner/gitea-arm .
@@ -34,8 +36,8 @@ jobs:
           rm -rf debs/*
           mv tmp/deb/*.deb debs/
           rm -rf tmp
-          git config user.name 'Ryan Fortner'
-          git config user.email 'ryanfortner@users.noreply.github.com'
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
           git add .
-          git commit -m "[auto] compile gitea ${LATEST}"
+          git commit -m "Upload gitea ${LATEST}"
           git push origin master
