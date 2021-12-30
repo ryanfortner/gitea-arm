@@ -36,6 +36,7 @@ jobs:
           rm -rf debs/*
           mv tmp/deb/*.deb debs/
           rm -rf tmp
+          echo $LATEST > current.txt
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
