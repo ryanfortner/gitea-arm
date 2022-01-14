@@ -24,6 +24,7 @@ jobs:
           rm -rf tmp
           mkdir tmp && cd tmp
           cp ../build-package .
+          cp ../debian .
           chmod +x build-package
           chmod 755 DEBIAN/control
           chmod 755 DEBIAN/postinst
