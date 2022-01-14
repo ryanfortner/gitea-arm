@@ -21,7 +21,7 @@ jobs:
           export LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
           export current=$(cat current.txt)
           [ "$current" == "$LATEST" ] && exit 0
-          rm -rf tmp
+          rm -rm debs deb tmp
           mkdir tmp && cd tmp
           cp ../build-package .
           cp -r ../DEBIAN .
@@ -32,10 +32,8 @@ jobs:
           chmod 755 DEBIAN/preinst
           chmod 755 DEBIAN/prerm
           bash build-package || exit 1
+          mv deb/*.deb ../
           cd ..
-          mkdir -p debs
-          rm -rf debs/*
-          mv tmp/deb/*.deb debs/
           rm -rf tmp
           echo $LATEST > current.txt
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
