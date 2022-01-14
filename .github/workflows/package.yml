@@ -21,7 +21,7 @@ jobs:
           export LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
           export current=$(cat current.txt)
           [ "$current" == "$LATEST" ] && exit 0
-          rm -rm debs deb tmp
+          rm -rf debs deb tmp
           mkdir tmp && cd tmp
           cp ../build-package .
           cp -r ../DEBIAN .
