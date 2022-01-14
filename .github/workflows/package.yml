@@ -22,7 +22,8 @@ jobs:
           export current=$(cat current.txt)
           [ "$current" == "$LATEST" ] && exit 0
           rm -rf tmp
-          git clone https://github.com/ryanfortner/gitea-arm tmp && cd tmp
+          mkdir tmp && cd tmp
+          cp ../build-package .
           chmod +x build-package
           chmod 755 DEBIAN/control
           chmod 755 DEBIAN/postinst
