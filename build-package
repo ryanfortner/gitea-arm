@@ -48,4 +48,3 @@ for dist in "${all_dist[@]}"; do
     dpkg-deb --build "$DESTDIR" "$OUTDIR"
     
 done
-    
